@@ -4,7 +4,7 @@
  * @Autor: tu
  * @Date: 2023-03-13 14:28:00
  * @LastEditors: tu
- * @LastEditTime: 2023-03-17 13:00:33
+ * @LastEditTime: 2023-03-18 21:19:22
  * @FilePath: /node/app.js
  */
 // 导入 express 模块
@@ -16,6 +16,12 @@ const app = express()
 const cors = require('cors')
 // 将 cors 注册为全局中间件
 app.use(cors())
+
+const send = require('./utils/send')
+
+// 将 send 注册为全局中间件
+app.use(send.success)  // 成功处理函数
+app.use(send.fail) // 失败处理函数
 
 // 导入并注册用户路由模块
 const userRouter = require('./router/user')

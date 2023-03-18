@@ -4,7 +4,7 @@
  * @Autor: tu
  * @Date: 2023-03-17 11:55:12
  * @LastEditors: tu
- * @LastEditTime: 2023-03-18 20:40:41
+ * @LastEditTime: 2023-03-18 21:23:10
  * @FilePath: /node/utils/oss-upload.js
  */
 const OSS = require('ali-oss')
@@ -45,19 +45,15 @@ async function put (name, file) {
     if (result.res.status === 200) {
       return result
     } else {
-      return Promise.reject({
-        code: 0,
-        data: result,
-        msg: "上传失败"
-      })
+      return Promise.reject(result)
     }
   } catch (e) {
-    return Promise.reject({
-      code: 0,
-      data: e,
-      msg: "上传失败"
-    })
-
+    // return Promise.reject({
+    //   code: 0,
+    //   data: e,
+    //   msg: "上传失败"
+    // })
+    return Promise.reject(e)
   }
 }
 
