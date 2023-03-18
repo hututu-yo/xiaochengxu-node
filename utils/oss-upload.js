@@ -1,3 +1,12 @@
+/*
+ * @Description: 
+ * @Version: 1.0
+ * @Autor: tu
+ * @Date: 2023-03-17 11:55:12
+ * @LastEditors: tu
+ * @LastEditTime: 2023-03-18 20:40:41
+ * @FilePath: /node/utils/oss-upload.js
+ */
 const OSS = require('ali-oss')
 const path = require("path")
 
@@ -29,19 +38,25 @@ async function put (name, file) {
   try {
     // 填写OSS文件完整路径和本地文件的完整路径。OSS文件完整路径中不能包含Bucket名称。
     // 如果本地文件的完整路径中未指定本地路径，则默认从示例程序所属项目对应本地路径中上传文件。
-    // const result = await client.multipartUpload(name, file
-    const result = await client.putStream(name, file
+    const result = await client.put(name, file
       // 自定义headers
       //,{headers}
     );
-    console.log("🚀 ~ file: oss-upload.js:37 ~ put ~ result:", result)
     if (result.res.status === 200) {
       return result
     } else {
-      return Promise.reject(result)
+      return Promise.reject({
+        code: 0,
+        data: result,
+        msg: "上传失败"
+      })
     }
   } catch (e) {
-    console.log('e: ', e);
+    return Promise.reject({
+      code: 0,
+      data: e,
+      msg: "上传失败"
+    })
 
   }
 }
